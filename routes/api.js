@@ -31,7 +31,13 @@ MongoClient.connect(url,
              {$set: req.body /*{state:true}*/},
             function (err, result) {
                 if (err) return next(err);
-                return res.json(result);
+                db.collection('todos').findOne({_id:ObjectId(req.params.id)}, function (err, doc){
+                    if(err) return next(err);
+                    res.render('todo', {todo : doc}, function(err, html) {
+                        if(err) return next(err);
+                        return res.json({response : html})   
+                    })
+                })
             });
         });
 });
