@@ -20,9 +20,9 @@
         element.addEventListener('click', function () {
             var st = this.getAttribute('data-state') == "false";
             makeRequest(this.getAttribute('data-id'), 'PUT', {state:st}, function (res) {
-                var span = document.createElement("span");
-                span.innerHTML = res.response;
-                element.closest(".todo").replaceWith(span.firstChild);
+                var tbody = document.createElement("tbody");
+                tbody.innerHTML = res.response;
+                element.closest(".todo").replaceWith(tbody.firstChild);
             });
         })
     });
