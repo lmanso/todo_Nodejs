@@ -23,6 +23,7 @@
                 <th>titre</th>
                 <th>contenu</th>
                 <th>utilisateur</th>
+                <th>statut</th>
                 <th>deadline</th>
                 <th>Créer le</th>
                 <th>Modifier le</th>
@@ -32,40 +33,12 @@
         </thead>
         <tbody>
             <% for (var i = 0; i < todos.length; i++) { %>
-                <!-- je parcours todos et l'incrémente jusqu'à arriver à la fin -->
-            <tr>
-                <td>
-                    <%=todos[i].title %>
-                    <!-- je me repére dans mon tableau et prend le titre qui coresspond -->
-                </td>
-                <td>
-                    <%=todos[i].content %>
-                </td>
-                <td>
-                    <%=todos[i].user %>
-                </td>
-                <td>
-                    <%=todos[i].deadline %>
-                </td>
-                <td>
-                    <%=todos[i].cretation_date.toDateString() %>
-                    <!-- toDateString est une fonction pour mettre en forme la date -->
-                </td>
-                <td>
-                    <%=todos[i].update_date.toDateString() %>
-                </td>
-            
-                <td>
-                    <button type="button" class="done-button btn btn-success" data-id="<%=todos[i]._id%>"><i class="far fa-edit"></i></button>
-                    <!-- data-id prend la valeur de l'id de mon todos -->
-                </td>
-                <td>
-                    <button type="button" class="delete-button btn btn-danger" data-id="<%=todos[i]._id%>"><i class="far fa-times-circle"></i></button>
-                </td>
-            </tr>
+            <!-- je parcours todos et l'incrémente jusqu'à arriver à la fin -->
+            <%- include('todo', {todo: todos[i]}); %>
             <%}%>
         </tbody>
     </table>
+    
 </body>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
     crossorigin="anonymous"></script>

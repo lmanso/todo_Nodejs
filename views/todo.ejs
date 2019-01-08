@@ -1,0 +1,36 @@
+<tr class="todo">
+    <td>
+        <%=todo.title %>
+        <!-- je me repére dans mon tableau et prend le titre qui coresspond -->
+    </td>
+    <td>
+        <%=todo.content %>
+    </td>
+    <td>
+        <%=todo.user %>
+    </td>
+    <td>
+        <%=todo.state %>
+    </td>
+    <td>
+        <%=todo.deadline %>
+    </td>
+    <td>
+        <%=todo.cretation_date.toDateString() %>
+        <!-- toDateString est une fonction pour mettre en forme la date -->
+    </td>
+    <td>
+        <%=todo.update_date.toDateString() %>
+    </td>
+
+    <td>
+        <button type="button" class="done-button btn btn-primary" data-id="<%= todo._id %>" data-state="<%= todo.state %>"><i
+                class="far fa-edit"></i></button>
+        <!-- data-id prend la valeur de l'id de mon todos -->
+    </td>
+    <td>
+        <button type="button" class="delete-button btn btn-danger" data-id="<%=todo._id%>" data-state="<%= todo.state %>"><i
+                class="far fa-times-circle"></i></button>
+    </td>
+</tr>
+ 
