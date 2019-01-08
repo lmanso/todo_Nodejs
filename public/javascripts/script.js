@@ -17,14 +17,14 @@
     document.querySelectorAll('.done-button').forEach(function (element) {
         element.addEventListener('click', function () {
             console.log(this.getAttribute('data-id'))
-            makeRequest(this.getAttribute('data-id'), 'PUT');
+            makeRequest(this.getAttribute('data-id'), 'PUT', {state:true});
         })
     });
 
 
-  function makeRequest(id, method) {
+  function makeRequest(id, method, datas) {
             httpRequest = new XMLHttpRequest();
-    //   On crée une instance de l'objet XMLHTTPRequest
+        /* On crée une instance de l'objet XMLHTTPRequest */
 
         if (!httpRequest) {
             alert('Giving up :( Cannot create an XMLHTTP instance');
@@ -32,12 +32,11 @@
       }
       httpRequest.onreadystatechange = alertContents;
       httpRequest.open(method, `/api/${id}`, true);
-      
       /*  On spécifie la méthode de transmission des données, 
       l'URL et le mode de transmission de la requête (true = asynchrone).
       ${var} Pour concatener une variable avec mon URI */
-      httpRequest.send();
-      /* On execute la requête*/
+      httpRequest.send(datas);
+      /* On execute la requête et on envois datas*/
     }
   
   function alertContents() {
