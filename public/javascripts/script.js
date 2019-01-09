@@ -8,7 +8,7 @@
     var setDelete = function(element) {
         element.addEventListener('click', function(){
             makeRequest(this.getAttribute('data-id'), 'DELETE', null, function(res){
-                alert(effacé)
+                alert("effacé");
                 element.closest('.todo').remove();
             });
         })
@@ -22,10 +22,12 @@
             makeRequest(this.getAttribute('data-id'), 'PUT', { state: st }, function (res) {
                 var tbody = document.createElement("tbody");
                 tbody.innerHTML = res.response;
+
                 var buttonDelete = tbody.querySelector(".delete-button");
                 setDelete(buttonDelete);
                 var buttonUpdate = tbody.querySelector(".done-button");
                 setUpdate(buttonUpdate);
+
                 element.closest(".todo").replaceWith(tbody.firstChild);
                 /* closest sélectionne l'enfant de l'élement qui a la classe .todo */
                 /* replaceWhith va remplacer pour le premier enfant de tbody*/
@@ -35,18 +37,27 @@
 
  /* POST */
     document.getElementById('addTodo').addEventListener('submit', function (evt) {
-    evt.preventDefault();
-    evt.stopPropagation();
+        evt.preventDefault();
+        evt.stopPropagation();
     
-    var form = evt.target;
-    var datas = {}; // hkj
-    form.querySelectorAll('[name]').forEach(function(el){
-        datas[el.getAttribute('name')] = el.value
-    });
-    console.log(datas);
-    makeRequest('', form.getAttribute('method'), datas, function(res){
-        var tr = document.createElement("tr");
-        tr.innerHTML = res.response;
+        var form = evt.target;
+        var datas = {};
+        form.querySelectorAll('[name]').forEach(function(el){
+            datas[el.getAttribute('name')] = el.value
+        });
+
+        makeRequest('', form.getAttribute('method'), datas, function(res){
+            var tbody = document.createElement("tbody");
+            tbody.innerHTML = res.response;
+            console.log(tbody);
+            var buttonDelete = tbody.querySelector(".delete-button");
+            setDelete(buttonDelete);
+            var buttonUpdate = tbody.querySelector(".done-button");
+            setUpdate(buttonUpdate);
+            
+            var container = document.getElementById("todoContainer"); 
+            container.appendChild(tbody.firstChild);
+            console.log(container);
         })
     })   
 
@@ -84,20 +95,13 @@
         httpRequest.send(datas ? JSON.stringify(datas) : null);
         /* On execute la requête et on envois datas on spécifie qu'on l'envoi en string (stingify) et JSON*/
         
-        // function alertContents() {
-            //     if (httpRequest.readyState === 4) {
-                //         /* Si la requête est terminée (4) */
-                //         if (httpRequest.status === 200) {
-                    //         /* Si la requête est un succé alors on affiche une alerte*/
-                    //             alert(httpRequest.responseText);
-                    //             callback(httpRequest.responseJSON);
-                    //         } else {
-                        //             console.log(httpRequest.readyState);
-                        //             // console.log(httpRequest.status);
-                        //             alert('There was a problem with the request.');
-                        //         }
-                        //     }
-                        // }
-                    }
-                })();
-                
+    }
+    var el = document.getElementById('todoContainer');
+    var sortable = Sortable.create(el, {
+        group: "localStorage-example",
+        store: {
+
+        }
+    })
+})();
+    

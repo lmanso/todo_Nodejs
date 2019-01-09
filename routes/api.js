@@ -22,11 +22,24 @@ MongoClient.connect(url,
             var todo = {
                 title: req.body.title,
                 content: req.body.content,
-                date: new Date(),
+                state: false,
+                update_date: new Date(),
+                creation_date: new Date(),
+                deadline: "",
+                user: 'test',
+                // date: new Date(),
             }
-            db.collection('tweets').insertOne(todo, function (error, result) {
-                return res.json(result);
-            })
+            db.collection('todos').insertOne(todo, function(err, result) {
+                if (err) return next(err);
+                db.collection('todos').findOne({ _id: ObjectId(result.insertedId) },
+                    function (err, doc) {
+                        if (err) return next(err);
+                        res.render('todo', { todo: doc }, function (err, html) {
+                            if (err) return next(err);
+                            return res.json({ response: html })
+                        });
+                    });
+            });
         });
 
         router.delete('/:id', function (req, res, next) {
@@ -48,10 +61,10 @@ MongoClient.connect(url,
                     res.render('todo', {todo : doc}, function(err, html) {
                         if(err) return next(err);
                         return res.json({response : html})   
-                    })
                 })
             });
         });
-});
+    });
+})
 
 module.exports = router;

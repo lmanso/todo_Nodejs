@@ -25,6 +25,7 @@ MongoClient.connect(url,
 
     router.get('/', function (req, res, next) {
       db.collection('todos').find({}).toArray(function (error, datas) {
+        console.log(datas);
         res.render('index', { title: 'Todolist', todos: datas})
       })
     });
