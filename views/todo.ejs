@@ -1,7 +1,9 @@
 <tr class="todo">
+    <!-- je me repére dans mon tableau et prend le titre qui coresspond (l.6) -->
+    <!-- toDateString est une fonction pour mettre en forme la date (l.21-22) -->
+    <!-- data-id prend la valeur de l'id de mon todos (l.28-30) -->
     <td>
         <%=todo.title %>
-        <!-- je me repére dans mon tableau et prend le titre qui coresspond -->
     </td>
     <td>
         <%=todo.content %>
@@ -17,20 +19,16 @@
     </td>
     <td>
         <%=todo.cretation_date.toDateString() %>
-        <!-- toDateString est une fonction pour mettre en forme la date -->
     </td>
     <td>
         <%=todo.update_date.toDateString() %>
     </td>
 
     <td>
-        <button type="button" class="done-button btn btn-primary" data-id="<%= todo._id %>" data-state="<%= todo.state %>"><i
-                class="far fa-edit"></i></button>
-        <!-- data-id prend la valeur de l'id de mon todos -->
+        <button type="button" class="done-button btn btn-success" data-id="<%= todo._id %>" data-state="<%= todo.state %>"> <i class="far fa-edit"></i></button>
     </td>
     <td>
-        <button type="button" class="delete-button btn btn-danger" data-id="<%=todo._id%>" data-state="<%= todo.state %>"><i
-                class="far fa-times-circle"></i></button>
+        <button type="button" class="delete-button btn btn-danger" data-id="<%=todo._id%>" data-state="<%= todo.state %>"><i class="far fa-times-circle"></i></button>
     </td>
 </tr>
  

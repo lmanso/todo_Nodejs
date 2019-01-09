@@ -17,6 +17,18 @@ MongoClient.connect(url,
         res.setHeader('Content-Type', 'application/json');
         next();
     });
+
+        router.post('/', function (req, res, next) {
+            var todo = {
+                title: req.body.title,
+                content: req.body.content,
+                date: new Date(),
+            }
+            db.collection('tweets').insertOne(todo, function (error, result) {
+                return res.json(result);
+            })
+        });
+
         router.delete('/:id', function (req, res, next) {
             db.collection('todos').deleteOne({ _id:ObjectId(req.params.id) }, 
             function (err, result) {
